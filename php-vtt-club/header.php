@@ -19,13 +19,19 @@ $clubInfo = getClubInfo();
     <title><?php echo isset($pageTitle) ? escape($pageTitle) . ' - ' : ''; ?><?php echo SITE_NAME; ?></title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="<?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
     <header class="main-header">
         <div class="container">
             <div class="header-content">
                 <a href="index.php" class="logo">
-                    <span class="logo-icon">🚴</span>
-                    <span class="logo-text"><?php echo SITE_NAME; ?></span>
+                    <?php
+                    // If a PNG logo is uploaded, display only the PNG (no text). Otherwise show site name.
+                    $customLogoPath = __DIR__ . '/uploads/logo-xendrazkoak.png';
+                    if (file_exists($customLogoPath)): ?>
+                        <img src="<?php echo UPLOAD_URL . 'logo-xendrazkoak.png'; ?>" alt="<?php echo escape(SITE_NAME); ?>" class="logo-img">
+                    <?php else: ?>
+                        <span class="logo-text"><?php echo escape(SITE_NAME); ?></span>
+                    <?php endif; ?>
                 </a>
                 
                 <nav class="main-nav">

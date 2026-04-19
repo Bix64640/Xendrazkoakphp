@@ -6,6 +6,8 @@
  */
 
 $pageTitle = 'Accueil';
+// Indiquer au header que nous sommes sur la page d'accueil
+$bodyClass = 'home-page';
 require_once __DIR__ . '/header.php';
 
 // Récupérer les infos du club

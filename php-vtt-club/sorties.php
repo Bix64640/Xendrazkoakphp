@@ -56,8 +56,8 @@ if ($user) {
 $moisOptions = [];
 for ($i = 0; $i < 6; $i++) {
     $date = date('Y-m', strtotime("+$i month"));
-    $label = strftime('%B %Y', strtotime($date . '-01'));
-    // Alternative si strftime ne fonctionne pas
+    // Avoid deprecated strftime(); build label manually (French month names)
+    // Alternative would be IntlDateFormatter for locale-aware formatting
     $moisNoms = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
                  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
     $m = (int)date('n', strtotime($date . '-01'));

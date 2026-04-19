@@ -5,7 +5,8 @@
  * =====================================================
  */
 
-require_once __DIR__ . '/functions.php';
+// Auth helpers (includes functions.php internally)
+require_once __DIR__ . '/auth.php';
 
 $id = (int)($_GET['id'] ?? 0);
 

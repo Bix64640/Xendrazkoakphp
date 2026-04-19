@@ -11,6 +11,9 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/db.php';
 
+// Récupère l'instance PDO fournie par db.php
+$pdo = getDB();
+
 if (!defined('ADMIN_CREDENTIALS_VISIBLE') || !ADMIN_CREDENTIALS_VISIBLE) {
     http_response_code(403);
     echo "Access forbidden. Enable ADMIN_CREDENTIALS_VISIBLE in config.php to use this tool.";
@@ -43,8 +46,26 @@ if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $msg = 'Un utilisateur avec cet email existe deja. Vous pouvez vous connecter.';
     } else {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare('INSERT INTO users (name, email, password_hash, role, is_active) VALUES (?, ?, ?, ?, 1)');
-        $stmt->execute([$name, $email, $hash, 'admin']);
+        // Le schéma de la table users utilise les colonnes nom/prenom, age et telephone_urgence
+        // On découpe le champ name en prenom/nom (premier token = prenom, dernier token = nom)
+        $parts = preg_split('/\s+/', $name, -1, PREG_SPLIT_NO_EMPTY);
+        if (count($parts) === 0) {
+            $prenom = 'Admin';
+            $nom = 'Admin';
+        } elseif (count($parts) === 1) {
+            $prenom = $parts[0];
+            $nom = $parts[0];
+        } else {
+            $prenom = array_shift($parts);
+            $nom = array_pop($parts);
+        }
+
+        // Valeurs par défaut nécessaires pour les colonnes NOT NULL
+        $age = 30;
+        $telephone_urgence = '0000000000';
+
+        $stmt = $pdo->prepare('INSERT INTO users (nom, prenom, email, password_hash, age, telephone_urgence, role, statut_compte) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$nom, $prenom, $email, $hash, $age, $telephone_urgence, 'admin', 'valide']);
         $msg = 'Compte administrateur cree avec succes. ID = ' . $pdo->lastInsertId();
     }
 }

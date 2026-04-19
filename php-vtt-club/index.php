@@ -35,16 +35,27 @@ $sorties = dbFetchAll("
 ?>
 
 <!-- Section Hero -->
-<section class="hero">
-    <h1>Bienvenue au <?php echo escape($clubInfo['nom_club'] ?? SITE_NAME); ?></h1>
-    <p>Rejoignez notre communauté de passionnés de VTT au Pays Basque !</p>
-    <?php if (!isLoggedIn()): ?>
-        <a href="signup.php" class="btn btn-lg btn-secondary">Rejoindre le club</a>
-    <?php else: ?>
-        <a href="sorties.php" class="btn btn-lg btn-secondary">Voir les sorties</a>
-    <?php endif; ?>
+<?php
+// Prefer a hero image if uploaded (hero.jpg / hero.png / hero.jpeg)
+$heroFile = null;
+foreach (['hero.jpg','hero.png','hero.jpeg'] as $hf) {
+    if (file_exists(__DIR__ . '/uploads/' . $hf)) { $heroFile = UPLOAD_URL . $hf; break; }
+}
+?>
+<section class="hero" <?php echo $heroFile ? 'style="background-image: url(' . $heroFile . ');"' : ''; ?> >
+    <div class="hero-content">
+        <h1>Bienvenue au <?php echo escape($clubInfo['nom_club'] ?? SITE_NAME); ?></h1>
+        <p>Rejoignez notre communauté de passionnés de VTT au Pays Basque !</p>
+        <div class="cta-group">
+            <?php if (!isLoggedIn()): ?>
+                <a href="signup.php" class="btn btn-secondary btn-lg">Rejoindre le club</a>
+                <a href="sorties.php" class="btn btn-outline">Voir les sorties</a>
+            <?php else: ?>
+                <a href="sorties.php" class="btn btn-secondary btn-lg">Voir les sorties</a>
+            <?php endif; ?>
+        </div>
+    </div>
 </section>
-
 <!-- Informations du club -->
 <section class="section">
     <h2 class="section-title">Informations pratiques</h2>
@@ -86,8 +97,6 @@ $sorties = dbFetchAll("
     </div>
 </section>
 <?php endif; ?>
-
-<!-- Actualités récentes -->
 <section class="section">
     <div class="flex flex-between items-center mb-2">
         <h2 class="section-title" style="margin-bottom: 0; border: none;">Actualités récentes</h2>

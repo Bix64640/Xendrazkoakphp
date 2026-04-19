@@ -22,7 +22,7 @@ if (DEBUG_MODE) {
 // Configuration de la base de données
 // =====================================================
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'xendrazkoak_vtt');
+define('DB_NAME', 'Xendrazkoak_vtt');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
@@ -69,3 +69,26 @@ if (session_status() === PHP_SESSION_NONE) {
 // Fuseau horaire
 // =====================================================
 date_default_timezone_set('Europe/Paris');
+
+// =====================================================
+// Flags et credentiels utilitaires (sécurité)
+// =====================================================
+// Par défaut, la création automatique d'un compte admin via
+// `creat_admin.php` est désactivée pour des raisons de sécurité.
+// Pour l'activer en environnement de développement, définissez
+// ADMIN_CREDENTIALS_VISIBLE à true (et fournissez ADMIN_EMAIL/ADMIN_PASS).
+// NE JAMAIS activer ceci en production.
+if (!defined('ADMIN_CREDENTIALS_VISIBLE')) {
+    // Par défaut, on l'active uniquement si DEBUG_MODE est true
+    define('ADMIN_CREDENTIALS_VISIBLE', DEBUG_MODE === true);
+}
+
+if (!defined('ADMIN_EMAIL')) {
+    // Valeurs par défaut vides ; modifiez si besoin en dev
+    define('ADMIN_EMAIL', 'admin@example.local');
+}
+
+if (!defined('ADMIN_PASS')) {
+    // Mot de passe par défaut (déconseillé). Changez en dev si utile.
+    define('ADMIN_PASS', 'changeme');
+}

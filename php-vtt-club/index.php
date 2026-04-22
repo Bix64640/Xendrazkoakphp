@@ -6,7 +6,6 @@
  */
 
 $pageTitle = 'Accueil';
-// Indiquer au header que nous sommes sur la page d'accueil
 $bodyClass = 'home-page';
 require_once __DIR__ . '/header.php';
 
@@ -32,33 +31,12 @@ $sorties = dbFetchAll("
     ORDER BY s.date_sortie ASC 
     LIMIT 3
 ");
-?>
 
-<?php
-// Section Hero : choisir une image si dispo dans uploads (hero.jpg/png/jpeg)
-$heroFile = null;
-foreach (['hero.jpg', 'hero.png', 'hero.jpeg'] as $hf) {
-    if (file_exists(__DIR__ . '/uploads/' . $hf)) {
-        $heroFile = UPLOAD_URL . $hf;
-        break;
-    }
-}
-
-// fallback texte pour le nom du club
 $nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
 ?>
 
 <!-- Section Hero -->
-<?php
-// Section Hero : image fixe dans le dossier img
-$heroFile = 'img/hero.jpg';
-
-// fallback texte pour le nom du club
-$nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
-?>
-
-<!-- Section Hero -->
-<section class="hero" style="background-image: url('<?php echo $heroFile; ?>');">
+<section class="hero">
     <div class="hero-content">
         <span class="hero-kicker">Club VTT • Pays Basque</span>
         <h1>Bienvenue au <?php echo $nomClub; ?></h1>
@@ -66,19 +44,12 @@ $nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
             Rejoignez notre communauté de passionnés de VTT au Pays Basque et
             découvrez des sorties pour tous les niveaux, entre nature, sport et convivialité.
         </p>
-
         <div class="hero-actions">
             <?php if (!isLoggedIn()): ?>
-                <a href="signup.php" class="btn btn-primary btn-lg">
-                    Rejoindre le club
-                </a>
-                <a href="sorties.php" class="btn btn-outline btn-lg">
-                    Voir les sorties
-                </a>
+                <a href="signup.php" class="btn btn-primary btn-lg">Rejoindre le club</a>
+                <a href="sorties.php" class="btn btn-outline btn-lg">Voir les sorties</a>
             <?php else: ?>
-                <a href="sorties.php" class="btn btn-primary btn-lg">
-                    Voir les sorties
-                </a>
+                <a href="sorties.php" class="btn btn-primary btn-lg">Voir les sorties</a>
             <?php endif; ?>
         </div>
     </div>

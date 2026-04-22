@@ -66,7 +66,7 @@ $clubInfo = getClubInfo();
                         <span class="user-name"><?php echo escape($currentUser['prenom']); ?></span>
                         <a href="logout.php" class="btn btn-sm btn-outline">Déconnexion</a>
                     <?php else: ?>
-                        <a href="login.php" class="btn btn-sm btn-outline">Connexion</a>
+                        <a href="login.php" class="btn btn-sm btn-secondary">Connexion</a>
                         <a href="signup.php" class="btn btn-sm btn-primary">S'inscrire</a>
                     <?php endif; ?>
                 </div>

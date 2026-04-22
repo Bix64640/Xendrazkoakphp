@@ -34,28 +34,50 @@ $sorties = dbFetchAll("
 ");
 ?>
 
-<!-- Section Hero -->
 <?php
-// Prefer a hero image if uploaded (hero.jpg / hero.png / hero.jpeg)
+// Section Hero : choisir une image si dispo dans uploads (hero.jpg/png/jpeg)
 $heroFile = null;
-foreach (['hero.jpg','hero.png','hero.jpeg'] as $hf) {
-    if (file_exists(__DIR__ . '/uploads/' . $hf)) { $heroFile = UPLOAD_URL . $hf; break; }
+foreach (['hero.jpg', 'hero.png', 'hero.jpeg'] as $hf) {
+    if (file_exists(__DIR__ . '/uploads/' . $hf)) {
+        $heroFile = UPLOAD_URL . $hf;
+        break;
+    }
 }
+
+// fallback texte pour le nom du club
+$nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
 ?>
-<section class="hero" <?php echo $heroFile ? 'style="background-image: url(' . $heroFile . ');"' : ''; ?> >
+
+<!-- Section Hero -->
+<section
+    class="hero"
+    <?php echo $heroFile ? 'style="background-image: url(' . $heroFile . ');"' : ''; ?>
+>
     <div class="hero-content">
-        <h1>Bienvenue au <?php echo escape($clubInfo['nom_club'] ?? SITE_NAME); ?></h1>
-        <p>Rejoignez notre communauté de passionnés de VTT au Pays Basque !</p>
-        <div class="cta-group">
+        <span class="hero-kicker">Club VTT • Pays Basque</span>
+        <h1>Bienvenue au <?php echo $nomClub; ?></h1>
+        <p>
+            Rejoignez notre communauté de passionnés de VTT au Pays Basque et
+            découvrez des sorties pour tous les niveaux, entre nature, sport et convivialité.
+        </p>
+
+        <div class="hero-actions">
             <?php if (!isLoggedIn()): ?>
-                <a href="signup.php" class="btn btn-secondary btn-lg">Rejoindre le club</a>
-                <a href="sorties.php" class="btn btn-outline">Voir les sorties</a>
+                <a href="signup.php" class="btn btn-primary btn-lg">
+                    Rejoindre le club
+                </a>
+                <a href="sorties.php" class="btn btn-outline btn-lg">
+                    Voir les sorties
+                </a>
             <?php else: ?>
-                <a href="sorties.php" class="btn btn-secondary btn-lg">Voir les sorties</a>
+                <a href="sorties.php" class="btn btn-primary btn-lg">
+                    Voir les sorties
+                </a>
             <?php endif; ?>
         </div>
     </div>
 </section>
+
 <!-- Informations du club -->
 <section class="section">
     <h2 class="section-title">Informations pratiques</h2>
@@ -88,21 +110,23 @@ foreach (['hero.jpg','hero.png','hero.jpeg'] as $hf) {
 <section class="section">
     <h2 class="section-title">Notre club en vidéo</h2>
     <div class="video-container">
-        <iframe 
-            src="<?php echo escape($clubInfo['youtube_url']); ?>" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        <iframe
+            src="<?php echo escape($clubInfo['youtube_url']); ?>"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
         </iframe>
     </div>
 </section>
 <?php endif; ?>
+
+<!-- Actualités récentes -->
 <section class="section">
     <div class="flex flex-between items-center mb-2">
         <h2 class="section-title" style="margin-bottom: 0; border: none;">Actualités récentes</h2>
         <a href="actualites.php" class="btn btn-outline btn-sm">Voir toutes</a>
     </div>
-    
+
     <?php if (empty($actualites)): ?>
         <div class="empty-state">
             <div class="icon">📰</div>
@@ -124,7 +148,9 @@ foreach (['hero.jpg','hero.png','hero.jpeg'] as $hf) {
                         <p><?php echo escape(truncate($actu['contenu'], 150)); ?></p>
                     </div>
                     <div class="card-footer">
-                        <a href="actualite_view.php?id=<?php echo $actu['id']; ?>" class="btn btn-sm btn-outline">Lire la suite</a>
+                        <a href="actualite_view.php?id=<?php echo $actu['id']; ?>" class="btn btn-sm btn-outline">
+                            Lire la suite
+                        </a>
                     </div>
                 </article>
             <?php endforeach; ?>
@@ -138,7 +164,7 @@ foreach (['hero.jpg','hero.png','hero.jpeg'] as $hf) {
         <h2 class="section-title" style="margin-bottom: 0; border: none;">Prochaines sorties</h2>
         <a href="sorties.php" class="btn btn-outline btn-sm">Voir le planning</a>
     </div>
-    
+
     <?php if (empty($sorties)): ?>
         <div class="empty-state">
             <div class="icon">🚴</div>
@@ -159,14 +185,18 @@ foreach (['hero.jpg','hero.png','hero.jpeg'] as $hf) {
                         <p><?php echo escape(truncate($sortie['description'], 100)); ?></p>
                         <div class="sortie-places <?php echo $placesRestantes <= 0 ? 'full' : ''; ?>">
                             <?php if ($placesRestantes > 0): ?>
-                                <?php echo $placesRestantes; ?> place<?php echo $placesRestantes > 1 ? 's' : ''; ?> disponible<?php echo $placesRestantes > 1 ? 's' : ''; ?>
+                                <?php echo $placesRestantes; ?>
+                                place<?php echo $placesRestantes > 1 ? 's' : ''; ?>
+                                disponible<?php echo $placesRestantes > 1 ? 's' : ''; ?>
                             <?php else: ?>
                                 Complet
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="sortie_view.php?id=<?php echo $sortie['id']; ?>" class="btn btn-sm btn-outline">Voir détails</a>
+                        <a href="sortie_view.php?id=<?php echo $sortie['id']; ?>" class="btn btn-sm btn-outline">
+                            Voir détails
+                        </a>
                     </div>
                 </article>
             <?php endforeach; ?>

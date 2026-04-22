@@ -49,10 +49,16 @@ $nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
 ?>
 
 <!-- Section Hero -->
-<section
-    class="hero"
-    <?php echo $heroFile ? 'style="background-image: url(' . $heroFile . ');"' : ''; ?>
->
+<?php
+// Section Hero : image fixe dans le dossier img
+$heroFile = 'img/hero.jpg';
+
+// fallback texte pour le nom du club
+$nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
+?>
+
+<!-- Section Hero -->
+<section class="hero" style="background-image: url('<?php echo $heroFile; ?>');">
     <div class="hero-content">
         <span class="hero-kicker">Club VTT • Pays Basque</span>
         <h1>Bienvenue au <?php echo $nomClub; ?></h1>

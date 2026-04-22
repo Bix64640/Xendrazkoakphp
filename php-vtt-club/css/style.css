@@ -239,8 +239,6 @@ h1, h2, h3, h4 {
     background-color: var(--encre);
     background-size: cover;
     background-position: center 35%;
-    /* tu peux aussi mettre une image par défaut ici
-       background-image: url('./img/hero-home.jpg'); */
 }
 
 /* Overlay dégradé pour lisibilité du texte */
@@ -300,11 +298,11 @@ h1, h2, h3, h4 {
     gap: 12px;
 }
 
-/* Fallback sans photo (dégradé vert/forêt) */
+/* Fallback sans photo (dégradé vert/forêt) 
 .home-page .hero {
     background-image: linear-gradient(135deg, var(--vert-hover) 0%, #253c2a 60%, var(--encre) 100%);
 }
-
+*
 
 /* =====================================================
    BUTTONS

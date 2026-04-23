@@ -25,7 +25,7 @@
                 
                 <div class="footer-contact">
                     <h4>Contact</h4>
-                    <p>Pour toute question, utilisez notre <a href="messages.php">formulaire de contact</a> ou présentez-vous lors des permanences.</p>
+                    <p>Pour toute question, n'hésitez pas à nous joindre par téléphone</a> ou  présentez-vous aux permanences</p>
                 </div>
             </div>
             

@@ -38,11 +38,11 @@ $nomClub = escape($clubInfo['nom_club'] ?? SITE_NAME);
 <!-- Section Hero -->
 <section class="hero">
     <div class="hero-content">
-        <span class="hero-kicker">Club VTT • Pays Basque</span>
+        <span class="hero-kicker">Club VTT • Ipparalde</span>
         <h1>Bienvenue au <?php echo $nomClub; ?></h1>
         <p>
-            Rejoignez notre communauté de passionnés de VTT au Pays Basque et
-            découvrez des sorties pour tous les niveaux, entre nature, sport et convivialité.
+            Club de VTT pour jeunes initiés , sorties tous les week-ends, encadrées par des bénévoles passionnés.
+             Rejoignez-nous pour partager des moments de convivialité et de sport en pleine nature !
         </p>
         <div class="hero-actions">
             <?php if (!isLoggedIn()): ?>

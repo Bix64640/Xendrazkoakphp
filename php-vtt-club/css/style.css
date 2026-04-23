@@ -359,8 +359,8 @@ h1, h2, h3, h4 {
 
 .btn-outline {
     background: rgba(255,255,255,0.12);
-    border-color: rgba(255,255,255,0.55);
-    color: var(--blanc);
+    border-color: rgba(37, 24, 24, 0.137);
+    color: var(--encre);
     backdrop-filter: blur(4px);
 }
 
